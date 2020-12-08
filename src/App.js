@@ -14,7 +14,7 @@ import {
 function App() {
   const [loggedIn, setloggedIn] = useState(false);
   const [user, setUser] = useState({});
-  let korisnik = {};
+
   useEffect(() => {
     axios.get("http://localhost:5000/login", { withCredentials: true, origin: "http://localhost:5000", headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } }).then(response => {
       setUser(response["data"])
@@ -31,7 +31,7 @@ function App() {
       <div className="App">
         <Navigation loggedIn={loggedIn}></Navigation>
         <Switch>
-          <Route path="/register">
+          <Route setUser={setUser} path="/register">
             <Register />
           </Route>
           <Route path="/login">

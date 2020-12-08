@@ -15,6 +15,7 @@ export default function Register() {
             "email": e.target[1].value,
             "password": e.target[2].value
         }, { withCredentials: true }).then(response => {
+            console.log(response);
             setEmailError(false);
         }).catch(err => {
             setEmailError(true);
