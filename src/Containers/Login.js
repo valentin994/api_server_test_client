@@ -11,7 +11,13 @@ export default function Login(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.get(`http://localhost:5000/user/${e.target[0].value}`).then(response => {
+        axios.post(`http://localhost:5000/login/`, {
+            "email": e.target[0].value,
+            "password": e.target[1].value
+        }, { withCredentials: true }).then(response => {
+            props.login(response["data"])
+        }).catch(err => {
+            console.log(err)
         })
     }
 
@@ -22,7 +28,7 @@ export default function Login(props) {
                     <Card.Body>
                         <Card.Title>Login</Card.Title>
                         <Container>
-                            <Form onSubmit={handleSubmit}>
+                            <Form onSubmit={e => handleSubmit(e)}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control type="email" placeholder="Enter email" />

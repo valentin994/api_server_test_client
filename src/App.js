@@ -16,26 +16,25 @@ function App() {
   const [user, setUser] = useState({});
 
   useEffect(() => {
-    axios.get("http://localhost:5000/login", { withCredentials: true, origin: "http://localhost:5000", headers: { 'Access-Control-Allow-Origin': '*', 'Content-Type': 'application/json' } }).then(response => {
-      setUser(response["data"])
-      console.log(user)
-      setloggedIn(true);
-    }).catch(err => {
-      console.log(err);
-      setloggedIn(false);
-    })
-  }, [])
+    console.log(loggedIn)
+  })
+
+  const login = (data) => {
+    setUser(data);
+    setloggedIn(true);
+    console.log(loggedIn)
+  }
 
   return (
     <Router>
       <div className="App">
-        <Navigation loggedIn={loggedIn}></Navigation>
+        <Navigation loggedIn={loggedIn} user={user}></Navigation>
         <Switch>
-          <Route setUser={setUser} path="/register">
+          <Route path="/register">
             <Register />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login login={login} />
           </Route>
         </Switch>
       </div>

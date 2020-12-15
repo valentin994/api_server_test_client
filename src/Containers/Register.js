@@ -4,10 +4,12 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/Card';
+import { useHistory } from 'react-router-dom';
 
 export default function Register() {
     const [emailError, setEmailError] = useState(false);
+    const history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post(`http://localhost:5000/register/`, {
@@ -15,11 +17,10 @@ export default function Register() {
             "email": e.target[1].value,
             "password": e.target[2].value
         }, { withCredentials: true }).then(response => {
-            console.log(response);
             setEmailError(false);
+            history.push("/login");
         }).catch(err => {
             setEmailError(true);
-            console.log(err);
         })
     }
 
